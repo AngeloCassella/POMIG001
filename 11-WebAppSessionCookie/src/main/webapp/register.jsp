@@ -26,7 +26,13 @@
             </div>
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
-        <div class="alert alert-danger" role="alert">${error}</div>
+
+        <c:if test="${not empty error}">
+            <div class="alert alert-danger mt-3" role="alert">${error}</div>
+        </c:if>
+        <c:if test="${not empty success}">
+            <div class="alert alert-success mt-3" role="alert">${success}</div>
+        </c:if>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>

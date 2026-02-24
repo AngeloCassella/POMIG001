@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Navbar</a>
@@ -9,9 +12,23 @@
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </div>
       </div>
-      <span class="navbar-text">
-         <a class="nav-link" href="/login">login</a>
-         <a class="nav-link" href="/register">register</a>
-      </span>
+
+       <c:choose>
+           <c:when test="${not empty userLogin}">
+
+            <span class="navbar-text">
+               <p> Hello <c:out value="${userLogin.name}" />!</p>
+            </span>
+            <span class="navbar-text">
+                <a class="nav-link" href="/logout">logout</a>
+            </span>
+           </c:when>
+           <c:otherwise>
+               <span class="navbar-text">
+                     <a class="nav-link" href="/login">login</a>
+                     <a class="nav-link" href="/register">register</a>
+               </span>
+           </c:otherwise>
+       </c:choose>
     </div>
   </nav>

@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -10,6 +13,11 @@
   <jsp:include page="fragments/header.jsp" />
   <div class="container">
     <h1>Hello, world!</h1>
+    <ul class="list-group list-group-flush m-3">
+      <c:forEach var="u" items="${users}">
+        <li class="list-group-item"> ${u.name} (${u.email}) </li>
+      </c:forEach>
+    </ul>
    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>
