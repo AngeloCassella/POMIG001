@@ -27,6 +27,8 @@ Tabella courses
 Elenco corsi disponibili.
 Campi: id (PK) - titolo - descrizione - prezzo - docente
 
+Alter Table -> livello ['Base', 'Intermedio', 'Avanzato'] Default 'Base'
+
 Tabella lessons
 Un corso contiene più lezioni.
 Campi: id (PK) - course_id (FK) - titolo - durata_minuti - ordine
@@ -50,3 +52,154 @@ Eseguire:
 - aggiornamento email di un utente (UPDATE)
 - modifica prezzo di un corso
 - cancellazione di una iscrizione (DELETE)
+
+CREATE DATABASE IF NOT EXISTS online_courses;
+USE online_courses;
+
+-- id (PK) - nome - cognome - email (UNIQUE) - data_registrazione
+CREATE TABLE IF NOT EXISTS online_courses.users (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    cognome VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    data_registrazione DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- id (PK) - user_id (FK UNIQUE) - bio - avatar_url
+CREATE TABLE IF NOT EXISTS online_courses.profiles (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    bio TEXT,
+    avatar_url VARCHAR(255),
+    user_id INT NOT NULL UNIQUE,
+    CONSTRAINT fk_profile_user 
+		FOREIGN KEY(user_id) 
+        REFERENCES online_courses.users(id) 
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE 
+);
+
+-- id (PK) - titolo - descrizione - prezzo - docente
+CREATE TABLE IF NOT EXISTS online_courses.courses (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    titolo VARCHAR(100) NOT NULL,
+    descrizione TEXT,
+    prezzo DECIMAL(8,2) NOT NULL,
+    docente VARCHAR(100) NOT NULL
+);
+
+-- livello ['Base', 'Intermedio', 'Avanzato'] Default 'Base'
+ALTER TABLE online_courses.courses 
+	ADD COLUMN livello ENUM('Base', 'Intermedio', 'Avanzato') DEFAULT 'Base';
+    
+-- id (PK) - course_id (FK) - titolo - durata_minuti - ordine
+CREATE TABLE IF NOT EXISTS online_courses.lessons (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    titolo VARCHAR(100) NOT NULL,
+    durata_minuti INT NOT NULL,
+    ordine INT NOT NULL,
+	course_id INT NOT NULL,
+    CONSTRAINT fk_lesson_course 
+		FOREIGN KEY(course_id) 
+        REFERENCES online_courses.courses(id) 
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE 
+);
+
+-- user_id (FK) - course_id (FK) - data_iscrizione
+CREATE TABLE IF NOT EXISTS online_courses.enrollments (
+    user_id INT NOT NULL,
+    course_id INT NOT NULL,
+    data_iscrizione DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT pk_user_course PRIMARY KEY(user_id, course_id), -- impedisce doppie iscrizioni allo stesso corso da parte dello stesso utente
+
+	CONSTRAINT fk_enroll_user 
+		FOREIGN KEY(user_id) 
+        REFERENCES online_courses.users(id) 
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE,
+	CONSTRAINT fk_enroll_course
+		FOREIGN KEY(course_id) 
+        REFERENCES online_courses.courses(id) 
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE
+);
+
+
+INSERT INTO online_courses.users (nome, cognome, email) VALUES
+('Mario','Rossi','mario@email.com'),
+('Luca','Bianchi','luca@email.com'),
+('Anna','Verdi','anna@email.com'),
+('Giulia','Neri','giulia@email.com'),
+('Paolo','Gialli','paolo@email.com');
+
+INSERT INTO online_courses.profiles (user_id, bio, avatar_url) VALUES
+(1,'Sviluppatore backend','avatar1.png'),
+(2,'Frontend developer','avatar2.png'),
+(3,'Data analyst','avatar3.png'),
+(4,'Studentessa informatica','avatar4.png'),
+(5,'DevOps engineer','avatar5.png');
+
+INSERT INTO online_courses.courses (titolo, descrizione, prezzo, docente, livello) VALUES
+('MySQL Base','Introduzione ai database',49.99,'Marco Dev','Base'),
+('Java Spring','Backend avanzato',89.99,'Laura Code','Intermedio'),
+('React Completo','Frontend moderno',79.99,'Gianni Web','Intermedio');
+
+INSERT INTO online_courses.lessons (course_id, titolo, durata_minuti, ordine) VALUES
+(1,'Introduzione DB',20,1),(1,'SELECT base',30,2),(1,'JOIN',40,3),
+(2,'Spring Intro',25,1),(2,'Dependency Injection',35,2),(2,'REST API',45,3),
+(3,'React Intro',20,1),(3,'Componenti',30,2),(3,'Hooks',35,3),(3,'Routing',40,4);
+
+INSERT INTO online_courses.enrollments (user_id, course_id) VALUES
+(1,1),(1,2),(2,1),(3,3),(4,2),(5,1),(5,3);
+
+-- Query sul database online_courses
+1 - Elenco utenti registrati: 
+Visualizzare nome, cognome ed email di tutti gli utenti.
+Ordinare per cognome in ordine alfabetico.
+
+2 - Corsi con prezzo superiore a 60€
+Mostrare titolo e prezzo dei corsi con prezzo maggiore di 60.
+Ordinare dal più costoso al meno costoso.
+
+3 - Lezioni di durata superiore a 30 minuti
+Visualizzare titolo lezione e durata.
+Ordinare per durata decrescente.
+
+4 Numero totale di utenti registrati
+Restituire il conteggio totale degli utenti.
+
+5 Prezzo medio dei corsi
+Calcolare il prezzo medio dei corsi presenti.
+
+6 Numero di lezioni per ogni corso
+Mostrare id corso e numero lezioni associate.
+
+7 Utenti con informazioni del profilo
+Mostrare nome utente e bio del profilo.
+
+8 Elenco lezioni con titolo del corso
+Visualizzare: titolo corso, titolo lezione, ordine lezione
+
+9 Utenti iscritti ai corsi
+Mostrare: nome utente, titolo corso, data iscrizione
+
+10 Numero iscritti per corso
+Mostrare titolo corso e numero totale iscritti.
+Includere anche corsi senza iscritti.
+
+11 Utenti con numero di corsi frequentati
+Mostrare nome utente e totale corsi frequentati.
+Ordinare dal più attivo al meno attivo.
+
+12 Durata totale delle lezioni per ogni corso
+Calcolare la somma dei minuti di tutte le lezioni appartenenti allo stesso corso.
+
+13 Corsi con prezzo superiore alla media
+Mostrare i corsi il cui prezzo è maggiore del prezzo medio di tutti i corsi.
+
+14 Utenti iscritti ad almeno un corso avanzato
+Usare una subquery per filtrare gli utenti.
+Non usare JOIN diretti nella query principale.
+
+15 Utente/i iscritti al maggior numero di corsi
+Restituire l’utente (o utenti) con il massimo numero di iscrizioni.

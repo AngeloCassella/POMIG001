@@ -164,3 +164,169 @@ INSERT INTO pomig001.passaporti (numero_passaporto, data_rilascio, id_utente)
                                 (3, "2026-02-08", 1);
                                 
 DELETE FROM pomig001.utenti WHERE id_utente = 1;
+
+-- DQL -> Data Query Language
+-- Definisce tutte le istruzioni SQL per la lettura dei dati contenuti in un DB
+
+-- SELECT 	-> Definisce un elenco di campi o tutto(*) da restituire in un resultset di dati
+-- FROM 	-> Indica la sorgente di dati da cui leggere le informazioni (la/le tabelle)
+-- WHERE	-> Search Condition, applica un filtro sulle righe della tabella indicata nel FROM
+-- GROUP BY	-> Aggrega dei dati rispetto alla combinazione univoca data dalla group list
+-- HAVING	-> Search Condition, applica un filtro sulle righe della tabella filtrata ed aggregata dal GROUP BY
+-- ORDER BY	-> Consente di definire un ordinamento ben preciso
+-- LIMIT	-> Consente di selezionare un numero definito di record
+
+/*
+	SELECT [DISTINCT] column_name1, column_name2, ..., column_nameN |*| aggregate_function(expression)
+		FROM db_name.table_name
+        [WHERE Search Condition]
+        [GROUP BY]
+        [HAVING Search Condition]
+        [ORDER BY]
+        [LIMIT]
+*/
+
+/*
+	Operatori di confronto della Search Condition
+    = (uguale)
+    > (maggiore di)
+    < (minore di)
+    >= (maggiore o uguale)
+    <= (minore o uguale)
+    <>|!= (diverso da) 
+    !< (non minore di)
+    !> (non maggiore di)
+    
+    Operatori logici della Search Condition
+    AND (restituisce TRUE se entrambe le condizioni sono vere)
+    OR (restituisce TRUE se almeno una delle condizioni è vera)
+    
+    LIKE (contiene -> caratteri jolly -> _ %)
+    BETWEEN (restituisce tutti i valori compresi tra >= AND <= del range specificato)
+    IN | NOT IN (Di un elenco di dati in cui individuare una corrispondenza)
+*/
+
+/*
+	INNER JOIN | LEFT JOIN | RIGHT JOIN | CROSS JOIN
+    
+    SELECT [DISTINCT] column_name1, column_name2, ..., column_nameN |*| aggregate_function(expression)
+		FROM db_name.table_name1 AS tb1
+        INNER JOIN db_name.table_name2 AS tb2
+        ON tb1.column_name = tb2.column_name
+        [WHERE Search Condition]
+        [GROUP BY]
+        [HAVING Search Condition]
+        [ORDER BY]
+        [LIMIT]
+    
+    SELECT [DISTINCT] column_name1, column_name2, ..., column_nameN |*| aggregate_function(expression)
+		FROM db_name.table_name1 AS tb1
+        LEFT JOIN db_name.table_name2 AS tb2
+        ON tb1.column_name = tb2.column_name
+        [WHERE Search Condition]
+        [GROUP BY]
+        [HAVING Search Condition]
+        [ORDER BY]
+        [LIMIT]
+        
+	SELECT [DISTINCT] column_name1, column_name2, ..., column_nameN |*| aggregate_function(expression)
+		FROM db_name.table_name1 AS tb1
+        RIGHT JOIN db_name.table_name2 AS tb2
+        ON tb1.column_name = tb2.column_name
+        [WHERE Search Condition]
+        [GROUP BY]
+        [HAVING Search Condition]
+        [ORDER BY]
+        [LIMIT]
+	
+    SELECT [DISTINCT] column_name1, column_name2, ..., column_nameN |*| aggregate_function(expression)
+		FROM db_name.table_name1 AS tb1
+        CROSS JOIN db_name.table_name2 AS tb2
+        ON tb1.column_name = tb2.column_name
+        [WHERE Search Condition]
+        [GROUP BY]
+        [HAVING Search Condition]
+        [ORDER BY]
+        [LIMIT]
+    
+*/
+
+/*
+
+	SubQuery o Inner Query -> Sono query inserite in altre query, 
+    una query annidata dipende dalla query esterna
+    
+    SELECT [DISTINCT] column_name1, column_name2, ..., column_nameN | * | aggregate_function(expression)
+	FROM (
+		SELECT [DISTINCT] column_name1, column_name2, ..., column_nameN ) 
+			FROM table_name
+            [WHERE search condition]
+	)
+    [WHERE search condition]
+    
+    SELECT (
+		SELECT [DISTINCT] column_name1, column_name2, ..., column_nameN ) 
+			FROM table_name
+            [WHERE search condition]
+	)
+	FROM table_name
+    [WHERE search condition]
+    
+    SELECT [DISTINCT] column_name1, column_name2, ..., column_nameN | * | aggregate_function(expression)
+	FROM table_name
+    WHERE (
+		SELECT [DISTINCT] column_name1, column_name2, ..., column_nameN ) 
+			FROM table_name
+            [WHERE search condition]
+	)
+
+*/
+
+/* 
+    String function
+    https://dev.mysql.com/doc/refman/8.4/en/string-functions.html
+    CONCAT(column_name1, " - ", column_name2) -> Funzione che permette di concatenare due o più valori
+    UPPER('String' | column_name) -> Funzione che permette di trasformare un valore testuale in Uppercase
+    LOWER('String' | column_name) -> Funzione che permette di trasformare un valore testuale in Lowercase
+    LENGTH('String' | column_name) -> Funzione che restituisce la lunghezza di una stringa o di un valore letto dal db
+    TRIM('String' | column_name) -> Funzione che restituisce un valore testuale senza spazi vuoti prima o dopo il testo
+    
+    Numeric Function
+    https://dev.mysql.com/doc/refman/8.4/en/numeric-functions.html
+    COUNT(* | DISTINCT column_name) -> Funzione che restituisce il numero di record di una query
+    FORMAT(number | column_name, 2) -> Funzione che restituisce un numero decimale formattato
+    TRUNCATE(number | column_name, 2) -> Funzione che restituisce un numero decimale troncato
+    ABS(number | column_name) -> Funzione che restituisce un valore assoluto (senza segno -)
+    AVG(column_name) -> Funzione che restituisce la media dei valori numerici di una colonna
+    CEIL(column_name) -> Funzione che restituisce un valore arrotondato per eccesso
+    FLOOR(column_name) -> Funzione che restituisce un valore arrotondato per difetto
+    ROUND(column_name) -> Funzione che restituisce un valore arrotondato per il numero intero più vicino
+    RAND() -> Funzione che restituisce un valore casuale da 0 a 1
+    MAX(column_name) -> Funzione che restituisce il valore massimo presente in una colonna
+    MIN(column_name) -> Funzione che restituisce il valore minimo presente in una colonna
+    SUM(column_name) -> Funzione che restituisce la somma dei valori presenti in una colonna
+	
+    Date Function
+    https://dev.mysql.com/doc/refman/8.4/en/date-and-time-functions.html
+    ADDDATE(data, n) -> Funzione che aggiunge n ad una data
+    ADDTIME(time, n) -> Funzione che aggiunge n ad un valore orario
+    CURRENT_DATE() -> Funzione che restituisce una data in formato YYYY-MM-DD (String)
+    CURRENT_TIME() -> Funzione che restituisce un orario in formato HH-MM-SS (String)
+    CURRENT_TIMESTAMP() -> Funzione che restituisce data e ora del momento
+    DATADIFF(data1, data2) -> Funzione che calcola la differenza di giorni tra due date
+    DAY(data) -> Funzione che restituisce il giorno da una data completa
+    MONTH(data) -> Funzione che restituisce il mese da una data completa
+    YEAR(data) -> Funzione che restituisce l'anno da una data completa
+    HOUR(data) -> Funzione che restituisce l'ora da una data completa
+    MINUTE(data) -> Funzione che restituisce i minuti da una data completa
+    SECOND(data) -> Funzione che restituisce i secondi da una data completa
+    
+    Advanced Function
+    ISNULL(column_name) -> Funzione che restituisce 1 o 0 in base al valore NULL contenuto in una colonna
+    LAST_INSERT_ID() -> Funzione che restituisce l'ultimo valore intero inserito nel campo ID della PK
+    
+*/
+
+SELECT * FROM pomig001.utenti WHERE citta = "Roma";
+SELECT * FROM pomig001.passaporti;
+
