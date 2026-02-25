@@ -1,0 +1,44 @@
+package servlet;
+
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.User;
+
+import java.io.IOException;
+
+@WebServlet("/lista")
+public class ListaPrenotazioniServlet  extends HttpServlet {
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        User userLogin = (User) session.getAttribute("userLogin");
+
+        if(userLogin == null) {
+            resp.sendRedirect("/login");
+            return;
+        }
+
+        if(!userLogin.isAdmin()) {
+            resp.sendRedirect("/");
+            return;
+        }
+        req.setAttribute("prenotazioni", PrenotazioneServlet.getPrenotazioni());;
+        req.getRequestDispatcher("/jsp/lista.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
+    }
+}
