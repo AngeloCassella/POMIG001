@@ -13,8 +13,8 @@ Un utente può:
  - visualizzare le proprie iscrizioni
 
  Un utente ADMIN può:
- - creare nuovi corsi
- - visualizzare tutte le iscrizioni
+ - creare nuovi corsializz
+ - visuare tutte le iscrizioni
  - eliminare corsi
 
 Deve essere generato automaticamente al primo avvio dell’applicazione.
@@ -23,6 +23,7 @@ Tabella users
 | Campo    | Tipo                  |
 | -------- | --------------------- |
 | id       | INT PK AUTO_INCREMENT |
+| fullname | VARCHAR(50)           |
 | username | VARCHAR(50) UNIQUE    |
 | password | VARCHAR(255)          |
 | role     | VARCHAR(20)           |
