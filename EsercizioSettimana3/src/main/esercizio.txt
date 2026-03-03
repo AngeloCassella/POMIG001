@@ -13,7 +13,7 @@ Un utente può:
  - visualizzare le proprie iscrizioni
 
  Un utente ADMIN può:
- - creare nuovi corsializz
+ - creare nuovi corsi
  - visuare tutte le iscrizioni
  - eliminare corsi
 
