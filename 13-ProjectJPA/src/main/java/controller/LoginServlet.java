@@ -9,7 +9,7 @@ import services.AuthService;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/login")
+@WebServlet("/login2")
 public class LoginServlet extends HttpServlet {
 
     @Override

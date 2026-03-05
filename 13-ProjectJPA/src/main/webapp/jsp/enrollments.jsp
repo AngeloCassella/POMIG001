@@ -11,25 +11,23 @@
   </head>
   <body>
   <jsp:include page="fragments/header.jsp" />
-    <div class="container w-50">
-        <h1>Register</h1>
-
-        <form action="/register" method="POST">
-            <div class="mb-3">
-                <input type="text" name="fullname" class="form-control" placeholder="FullName...">
+  <div class="container w-50">
+    <h1>Enrollment Page</h1>
+        <form action="/enroll" method="POST">
+            <div class="row g-3 m-3">
+                <div class="col-sm">
+                    <select class="form-select" name="courses">
+                        <option selected>Open this select menu</option>
+                        <c:forEach var="c" items="${courses}">
+                            <option value="${c.id}">${c.title}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="col-sm">
+                    <button type="submit" class="btn btn-dark w-100"  role="button">Prenota</a>
+                </div>
             </div>
-            <div class="mb-3">
-                <input type="text" name="username" class="form-control" placeholder="Username...">
-            </div>
-            <div class="mb-3">
-                <input type="password" name="password" class="form-control" placeholder="Password...">
-            </div>
-            <button type="submit" class="btn btn-primary">Register</button>
         </form>
-
-        <c:if test="${not empty error}">
-            <div class="alert alert-danger mt-3" role="alert">${error}</div>
-        </c:if>
         <c:if test="${not empty success}">
             <div class="alert alert-success mt-3" role="alert">${success}</div>
         </c:if>

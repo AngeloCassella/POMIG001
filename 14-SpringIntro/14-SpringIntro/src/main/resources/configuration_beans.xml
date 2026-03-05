@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Creo un bean di tipo User utilizzando il costruttore -->
+    <bean id="beanUser" class="com.example.spring_intro.classes.User" scope="singleton">
+        <constructor-arg index="0" type="String" value="Mario" />
+        <constructor-arg index="1" type="String" value="Rossi" />
+        <constructor-arg index="2" type="Integer" value="45" />
+        <constructor-arg index="3" type="String" value="Roma" />
+        <constructor-arg index="4" type="String" value="m.rossi@example.com" />
+    </bean>
+
+    <!-- Creo un bean di tipo User utilizzando i setter -->
+    <bean id="beanUserSet" class="com.example.spring_intro.classes.User" scope="singleton">
+        <property name="firstName" value="Giuseppe" />
+        <property name="lastName" value="Verdi" />
+        <property name="age" value="21" />
+        <property name="city" value="Milano" />
+        <property name="email" value="g.verdi@example.com" />
+    </bean>
+
+    <!-- Creo un bean di tipo User con il pattern Prototype per fare una copia -->
+    <bean id="beanUserCopy" class="com.example.spring_intro.classes.User" scope="prototype">
+        <property name="city" value="Napoli" />
+    </bean>
+
+</beans>

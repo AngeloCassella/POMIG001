@@ -11,7 +11,7 @@ import services.AuthService;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/register")
+@WebServlet("/register2")
 public class RegisterServlet extends HttpServlet {
 
     @Override

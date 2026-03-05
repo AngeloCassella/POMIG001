@@ -11,13 +11,21 @@
         <div class="navbar-nav">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </div>
+        <c:if test="${not empty userLogin}">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="/courses">Courses</a>
+            </div>
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="/enroll">Enrollments</a>
+            </div>
+        </c:if>
       </div>
 
        <c:choose>
            <c:when test="${not empty userLogin}">
 
             <span class="navbar-nav">
-               <a class="nav-link" href="/user"> Hello <c:out value="${userLogin.name}" />!</a>
+               <a class="nav-link" href="/user"> Hello <c:out value="${userLogin.fullname}" />!</a>
                <a class="nav-link" href="/logout">logout</a>
             </span>
            </c:when>

@@ -12,9 +12,12 @@
   <body>
   <jsp:include page="fragments/header.jsp" />
   <div class="container w-50">
-    <h1>Home Page</h1>
-
-
+    <h1>Courses</h1>
+        <ul class="list-group list-group-flush m-3">
+            <c:forEach var="c" items="${courses}">
+                <li class="list-group-item"> ${c.title} (${c.teacher}) </li>
+            </c:forEach>
+        </ul>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>

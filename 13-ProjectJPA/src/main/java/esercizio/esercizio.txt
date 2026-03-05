@@ -1,4 +1,4 @@
-Sistema Web di Gestione Corsi Formativi
+Sistema Web di Gestione Corsi Formativi utilizzando JPA
 Realizzare una Web Application Java MVC-like per la gestione di corsi formativi e iscrizioni utenti
 Browser->Front Controller(DispatcherServlet)->Controller Servlet->Service Layer->DAO Layer->MySQL Database
 
@@ -55,8 +55,6 @@ DatabaseInitializer
 Struttura progetto richiesta
 src/main/java
 │
-├── config/
-│     └── DatabaseInitializer.java
 │
 ├── model/
 │     ├── User.java
@@ -64,7 +62,6 @@ src/main/java
 │     └── Enrollment.java
 │
 ├── dao/
-│     ├── ConnectionManager.java
 │     ├── UserDAO.java
 │     ├── CourseDAO.java
 │     └── EnrollmentDAO.java

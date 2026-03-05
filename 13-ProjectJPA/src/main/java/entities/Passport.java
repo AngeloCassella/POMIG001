@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-@Entity
+//@Entity
 @Table(name = "passports")
 @NamedQuery(name = "Passport.findAll", query = "SELECT p FROM Passport p")
 public class Passport {

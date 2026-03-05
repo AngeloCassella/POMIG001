@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+//@Entity
 @Table(name = "companies")
 @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c")
 public class Company {
