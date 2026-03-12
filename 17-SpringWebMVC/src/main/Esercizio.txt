@@ -1,0 +1,48 @@
+Sistema di Login e Registrazione con Spring MVC, Spring Data JPA e Thymeleaf
+Creare una web application con Spring MVC + Spring Data JPA
+Utilizzare Thymeleaf per la creazione delle pagine HTML dinamiche
+Realizzare un sistema completo di registrazione e login utente
+
+Creare un'applicazione web per la gestione degli utenti in cui:
+- Un nuovo utente può registrarsi tramite un form
+- Un utente esistente può eseguire il login
+- Dopo l'autenticazione, l'utente è reindirizzato a una dashboard personale
+- I dati utente sono salvati nel database tramite Spring Data JPA
+- Le viste sono costruite con Thymeleaf
+
+Classe Utente (@Entity)
+    id: Long
+    nome: String
+    email: String (unico)
+    password: String
+    ruolo: String (es. "USER", "ADMIN")
+
+Struttura del progetto
+Model
+    Utente.java (annotazioni JPA)
+    @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+Repository
+    UtenteRepository extends JpaRepository<Utente, Long>
+    Metodi personalizzati es. findByEmail(String email)
+Service
+    interfaccia UtenteService con metodi registerUser(), authenticateUser()
+    classe concreta UtenteServiceImpl: salva l’utente e controlla le credenziali
+Controller (Spring MVC)
+    AuthController.java
+        GET /login: mostra form login
+        POST /login: valida e autentica
+        GET /register: mostra form registrazione
+        POST /register: valida e registra
+        GET /dashboard: mostra la pagina protetta
+        GET /error: mostra la pagina di errore
+        GET /admin: mostra e gestisce tutti gli utenti registrati
+View (Thymeleaf)
+    /templates/login.html
+    /templates/register.html
+    /templates/dashboard.html
+    /templates/error.html
+    /templates/admin.html
+Configurazione
+    application.properties con configurazione DB
+
+Gestire anche le credenziali tramite una Sessione e la gestione dei Cookie

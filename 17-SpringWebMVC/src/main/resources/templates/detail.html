@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dettaglio Utente</title>
+</head>
+<body>
+    <h1>Dettaglio Utente</h1>
+    <div>
+        <p><strong>Nome: </strong> <span th:text="${user.firstname}"></span></p>
+        <p><strong>Cognome: </strong> <span th:text="${user.lastname}"></span></p>
+        <p><strong>Città: </strong> <span th:text="${user.city}"></span></p>
+        <p><strong>Email: </strong> <span th:text="${user.email}"></span></p>
+    </div>
+</body>
+</html>
