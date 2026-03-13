@@ -1,0 +1,147 @@
+Realizzare una web application MVC per la gestione di una biblioteca universitaria.
+
+L’applicazione deve consentire:
+- gestione di libri
+- gestione degli autori
+- gestione degli utenti
+- gestione dei prestiti
+- associazione tra libri e categorie
+
+L’applicazione deve utilizzare:
+- pattern MVC
+- Spring Dependency Injection
+- persistenza con JPA
+- viste dinamiche con Thymeleaf
+
+L'applicazione deve permettere:
+Gestione Libri
+- inserimento libro
+- modifica libro
+- eliminazione libro
+- visualizzazione lista libri
+- visualizzazione dettaglio libro
+Gestione Autori
+- creazione autore
+- lista autori
+- associazione autore-libro
+Gestione Utenti
+- registrazione utente
+- visualizzazione utenti
+Gestione Prestiti
+- registrazione prestito libro
+- restituzione libro
+- lista prestiti attivi
+Gestione Categorie
+- creazione categoria
+- associazione categoria-libro
+
+Entità richieste
+User (id,nome,email,telefono)
+Relazioni:
+User 1 ---- N Loan
+
+Book (id,titolo,isbn,annoPubblicazione)
+Relazioni:
+Book N ---- N Category
+Book N ---- 1 Author
+Book 1 ---- N Loan
+Book 1 ---- 1 BookDetail
+
+Author (id,nome,nazionalita)
+Relazioni
+Author 1 ---- N Book
+
+Category (id,nome)
+Relazioni
+Category N ---- N Book
+
+Loan (id,dataPrestito,dataRestituzione)
+Relazioni
+Loan N ---- 1 User
+Loan N ---- 1 Book
+
+BookDetail (id,numeroPagine,lingua,editore)
+Relazioni
+BookDetail 1 ---- 1 Book
+
+Relazioni JPA richieste
+
+OneToMany
+Author → Book
+User → Loan
+Book → Loan
+
+OneToOne
+Book → BookDetail
+
+ManyToMany
+Book ↔ Category
+
+Creare repository utilizzando Spring Data JPA
+
+AuthorRepository
+BookRepository
+UserRepository
+LoanRepository
+CategoryRepository
+
+Creare servizi per gestire la logica applicativa.
+
+AuthorService
+BookService
+UserService
+LoanService
+CategoryService
+
+Funzionalità esempio:
+
+createBook()
+updateBook()
+deleteBook()
+findAllBooks()
+assignCategoryToBook()
+createLoan()
+closeLoan()
+
+Creare un data initializer
+
+DataLoaderRunner
+inserire dati iniziali:
+- autori
+- libri
+- categorie
+- utenti
+
+Creare controller per gestire le richieste web.
+
+BookController
+- /books
+- /books/new
+- /books/save
+- /books/edit/{id}
+- /books/delete/{id}
+
+AuthorController
+- /authors
+- /authors/new
+- /authors/save
+
+LoanController
+- /loans
+- /loans/new
+- /loans/close/{id}
+
+Viste con Thymeleaf
+Creare template HTML.
+
+templates
+- books.html
+- book-form.html
+- authors.html
+- author-form.html
+- loans.html
+- loan-form.html
+- home.html
+
+Schema database:
+- biblioteca_db
