@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book Form Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="m-3">Book Form Page</h1>
+    <form th:object="${book}" th:action="@{/books/save}" th:method="POST">
+        <input type="hidden" th:field="*{id}" required>
+        <input type="hidden" th:field="*{categorie}" required>
+        <div class="mb-3">
+            <label for="titolo" class="form-label">Titolo</label>
+            <input type="text" class="form-control" name="titolo" id="titolo" placeholder="Titolo..." th:field="*{titolo}" required>
+        </div>
+        <div class="mb-3">
+            <label for="isbn" class="form-label">ISBN</label>
+            <input type="text" class="form-control" name="isbn" id="isbn" placeholder="ISBN..." th:field="*{isbn}">
+        </div>
+        <div class="mb-3">
+            <label for="anno" class="form-label">Anno</label>
+            <input type="number" class="form-control" name="anno" id="anno" placeholder="Anno..." th:field="*{annoPubblicazione}">
+        </div>
+        <div class="mb-3">
+            <label for="pagine" class="form-label">Pagine</label>
+            <input type="number" class="form-control" name="pagine" id="pagine" placeholder="Pagine..." th:field="*{dettaglio.numeroPagine}">
+        </div>
+        <div class="mb-3">
+            <label for="lingua" class="form-label">Lingua</label>
+            <input type="text" class="form-control" name="lingua" id="lingua" placeholder="Lingua..." th:field="*{dettaglio.lingua}">
+        </div>
+        <div class="mb-3">
+            <label for="editore" class="form-label">Editore</label>
+            <input type="text" class="form-control" name="editore" id="editore" placeholder="Editore..." th:field="*{dettaglio.editore}">
+        </div>
+        <div class="mb-3">
+            <label for="autore" class="form-label">Autore</label>
+            <select class="form-select" id="autore" th:field="*{autore}">
+                <option th:each="author : ${authors}"
+                        th:value="${author.id}"
+                        th:text="${author.nome}">
+                </option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Salva</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

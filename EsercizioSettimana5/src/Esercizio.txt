@@ -77,6 +77,8 @@ Book → BookDetail
 ManyToMany
 Book ↔ Category
 
+Creare configurations per la creazione di Bean.
+
 Creare repository utilizzando Spring Data JPA
 
 AuthorRepository
