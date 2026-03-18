@@ -27,7 +27,7 @@ public class Author {
 
     // Relazioni
     // Author 1 ---- N Book
-    @OneToMany(mappedBy = "autore",  fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "autore",  fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     List<Book> libri;
 
 

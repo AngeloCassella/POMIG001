@@ -1,10 +1,9 @@
-package org.example._8springwebrest.repositories;
+package org.example.gestioneprodotti.repositories;
 
-import org.example._8springwebrest.models.User;
+import org.example.gestioneprodotti.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    public User findByEmail(String email);
 }

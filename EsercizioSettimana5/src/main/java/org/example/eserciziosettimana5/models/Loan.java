@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -20,8 +21,10 @@ public class Loan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "loan_id", nullable = false)
     private Long id;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "loan_date" , nullable = false)
     private LocalDate dataPrestito;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "return_date")
     private LocalDate dataRestituzione;
 

@@ -59,4 +59,9 @@ public class LoanServiceImpl implements LoanService{
         loanRepo.delete(loan);
     }
 
+    @Override
+    public void deleteById(long id) {
+        loanRepo.deleteById(id);
+    }
+
 }

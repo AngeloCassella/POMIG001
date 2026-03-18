@@ -8,9 +8,39 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/books">Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/authors">Authors</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/loans">Loans</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <div class="container">
-            <h1 class="m-3">Books Page</h1>
-            <table class="table">
+            <h1 class="m-3">
+                Books Page
+                <a class="btn btn-dark btn-sm" role="button" href="/books/new"><i class="bi bi-file-earmark-plus-fill"></i></a>
+            </h1>
+                <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -31,7 +61,12 @@
                         <td th:text="${book.titolo}"></td>
                         <td th:text="${book.isbn}"></td>
                         <td th:text="${book.annoPubblicazione}"></td>
-                        <td th:text="${book.categorie}"></td>
+                        <td>
+                            <span th:each="cat, stat : ${book.categorie}">
+                                <span th:text="${cat.nome}"></span>
+                                <span th:if="${!stat.last}">, </span>
+                            </span>
+                        </td>
                         <td th:text="${book.autore.nome}"></td>
                         <td th:text="${book.dettaglio.numeroPagine}"></td>
                         <td th:text="${book.dettaglio.lingua}"></td>

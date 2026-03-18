@@ -44,7 +44,7 @@ public class Book {
     private Author autore;
 
     // Book 1 ---- N Loan
-    @OneToMany(mappedBy = "libro",  fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "libro",  fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Loan> prestiti;
 
     // Book 1 ---- 1 BookDetail

@@ -29,7 +29,7 @@ public class User {
 
     // Relazioni:
     // User 1 ---- N Loan
-    @OneToMany(mappedBy = "utente",  fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "utente",  fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Loan> prestiti;
 
 }
