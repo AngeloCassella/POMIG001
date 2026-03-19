@@ -1,5 +1,6 @@
 package org.example.springsecurity.security.runner;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.example.springsecurity.security.entity.ERole;
 import org.example.springsecurity.security.entity.Role;
+import org.example.springsecurity.security.payload.RegisterDto;
 import org.example.springsecurity.security.repository.RoleRepository;
 import org.example.springsecurity.security.repository.UserRepository;
 import org.example.springsecurity.security.service.AuthService;
@@ -21,6 +23,8 @@ import org.springframework.stereotype.Component;
 public class AuthRunner implements ApplicationRunner {
 	
 	@Autowired RoleRepository roleRepository;
+	@Autowired UserRepository userRepository;
+	@Autowired AuthService authService;
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -34,6 +38,11 @@ public class AuthRunner implements ApplicationRunner {
 			setRoleDefault();
 		} else {
 			System.out.println(roleList);
+		}
+
+		//Leggo nel DB se presente un admin di default
+		if(userRepository.findAll().size() == 0) {
+			setAdminUserDefault();
 		}
 		
 	}
@@ -56,6 +65,14 @@ public class AuthRunner implements ApplicationRunner {
 
 	}
 	
-	
+	private void setAdminUserDefault() {
+		RegisterDto admin = new RegisterDto();
+		admin.setUsername("admin");
+		admin.setEmail("admin@example.com");
+		admin.setName("Mario Rossi");
+		admin.setPassword("Pa$$w0rd!");
+		admin.setRoles(Set.of("ADMIN"));
+		authService.register(admin);
+	}
 
 }
